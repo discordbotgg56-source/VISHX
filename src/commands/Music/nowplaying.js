@@ -10,7 +10,9 @@ export default {
         .setDescription('Show the currently playing track'),
 
     async execute(interaction, config, client) {
-        await deferMusicCommand(interaction);
+        // Pass the ephemeral option into your prefix/defer support helper
+        await deferMusicCommand(interaction, { ephemeral: true });
+        
         const payload = buildNowPlayingReply(client, interaction.guild.id);
         await InteractionHelper.safeEditReply(interaction, payload);
     },
