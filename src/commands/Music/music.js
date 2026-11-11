@@ -105,7 +105,8 @@ export default {
         ),
 
     async execute(interaction, config, client) {
-        await deferMusicCommand(interaction);
+        // Pass the ephemeral option into your prefix/defer support helper
+        await deferMusicCommand(interaction, { ephemeral: true });
         const subcommand = interaction.options.getSubcommand();
 
         switch (subcommand) {
@@ -175,13 +176,14 @@ export default {
                 break;
             }
             case '247': {
-                const embed = await setTwentyFourSeven(client, interaction, interaction.options.getBoolean('enabled'));
+                const embed = await setTwentyFourSent(client, interaction, interaction.options.getBoolean('enabled'));
                 await replyMusicSuccess(interaction, embed);
                 break;
             }
             default:
                 await InteractionHelper.safeEditReply(interaction, {
                     content: 'Unknown music subcommand.',
+                    ephemeral: true,
                 });
         }
     },
